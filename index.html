@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theatre Ticket Booking</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <header>
+        <h1>Theatre Ticket Booking</h1>
+        <p>Choose your perfect seat!</p>
+    </header>
+
+    <main>
+        <section class="venue">
+            <h2>Select Your Seat</h2>
+
+            <div class="stage">STAGE</div>
+
+            <div id="seat-map"></div>
+        </section>
+
+        <aside class="booking">
+            <h2>Seat Details</h2>
+            <div id="seat-details">
+                <p>Click a seat to view details.</p>
+            </div>
+
+            <button id="add-to-cart" disabled>
+                ADD TO CART
+            </button>
+
+            <h2>Your Cart</h2>
+            <div id="cart-items">
+                <p>Your cart is empty.</p>
+            </div>
+
+            <p>Total: <span id="total-price">0</span> AZN</p>
+        </aside>
+    </main>
+
+</body>
+</html>
