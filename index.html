@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Theatre Ticket Booking</title>
+    <title>Velvet Stage | Ticket Booking</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
 
     <header>
-        <h1>Theatre Ticket Booking</h1>
-        <p>Choose your perfect seat!</p>
+        <h1>Velvet Stage</h1>
+        <p>Your seat, your story, your night.</p>
     </header>
 
     <main>
@@ -21,7 +21,14 @@
 
             <div class="stage">STAGE</div>
 
-            <div id="seat-map"></div>
+<div class="seat-legend">
+    <span><i class="legend-color available"></i> Available</span>
+    <span><i class="legend-color selected"></i> Selected</span>
+    <span><i class="legend-color cart"></i> In Cart</span>
+    <span><i class="legend-color unavailable"></i> Unavailable</span>
+</div>
+
+<div id="seat-map"></div>
         </section>
 
         <aside class="booking">

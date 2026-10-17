@@ -71,3 +71,68 @@ button:disabled {
         padding: 15px;
     }
 }
+/* Velvet Stage Theme */
+
+header {
+    background-color: #401c2a;
+    color: #f8e9d5;
+}
+
+.stage {
+    background-color: #722f43;
+    color: #fff1dc;
+    letter-spacing: 4px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.booking h2 {
+    color: #722f43;
+}
+
+#add-to-cart {
+    background-color: #722f43;
+}
+
+#add-to-cart:disabled {
+    background-color: #aaa;
+}
+/* Seat legend */
+
+.seat-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 20px 0;
+    font-size: 13px;
+}
+
+.seat-legend span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.legend-color {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 4px;
+}
+
+.available {
+    background-color: #5a9367;
+}
+
+.selected {
+    background-color: #d9a441;
+}
+
+.cart {
+    background-color: #722f43;
+}
+
+.unavailable {
+    background-color: #999;
+}
