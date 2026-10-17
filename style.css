@@ -71,7 +71,7 @@ button:disabled {
         padding: 15px;
     }
 }
-/* Velvet Stage Theme */
+
 
 header {
     background-color: #401c2a;
@@ -97,7 +97,7 @@ header {
 #add-to-cart:disabled {
     background-color: #aaa;
 }
-/* Seat legend */
+
 
 .seat-legend {
     display: flex;
@@ -135,4 +135,29 @@ header {
 
 .unavailable {
     background-color: #999;
+}
+.ticket-zones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.zone {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    color: white;
+}
+
+.vip {
+    background-color: #722f43;
+}
+
+.standard {
+    background-color: #b47b52;
+}
+
+.economy {
+    background-color: #5a9367;
 }
