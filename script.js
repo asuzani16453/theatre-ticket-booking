@@ -20,4 +20,13 @@ const sections = [
     }
 ];
 
-console.log(sections);
+const ticketZones = document.getElementById("ticket-zones");
+
+sections.forEach(function(section) {
+    const zone = document.createElement("span");
+
+    zone.className = "zone " + section.name.toLowerCase();
+    zone.textContent = section.name + " - " + section.price + " AZN";
+
+    ticketZones.appendChild(zone);
+});
