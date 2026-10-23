@@ -30,3 +30,34 @@ sections.forEach(function(section) {
 
     ticketZones.appendChild(zone);
 });
+
+const seatMap = document.getElementById("seat-map");
+
+sections.forEach(function(section) {
+    const sectionDiv = document.createElement("div");
+    sectionDiv.className = "seating-section";
+
+    const title = document.createElement("h3");
+    title.textContent = section.name;
+    sectionDiv.appendChild(title);
+
+    for (let row = 1; row <= section.rows; row++) {
+        const rowDiv = document.createElement("div");
+        rowDiv.className = "seat-row";
+
+        for (let number = 1; number <= section.seatsPerRow; number++) {
+            const seat = document.createElement("button");
+            seat.className = "seat";
+            seat.textContent = number;
+            seat.dataset.section = section.name;
+            seat.dataset.row = row;
+            seat.dataset.number = number;
+
+            rowDiv.appendChild(seat);
+        }
+
+        sectionDiv.appendChild(rowDiv);
+    }
+
+    seatMap.appendChild(sectionDiv);
+});
