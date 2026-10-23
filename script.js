@@ -51,9 +51,13 @@ sections.forEach(function(section) {
             seat.textContent = number;
             seat.dataset.section = section.name;
             seat.dataset.row = row;
-            seat.dataset.number = number;
+           seat.dataset.number = number;
 
-            rowDiv.appendChild(seat);
+        if (number === Math.floor(section.seatsPerRow / 2) + 1) {
+            seat.classList.add("aisle-start");
+        }
+
+        rowDiv.appendChild(seat);
         }
 
         sectionDiv.appendChild(rowDiv);

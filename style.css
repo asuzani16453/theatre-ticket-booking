@@ -168,16 +168,76 @@ header {
 .seat-row {
     display: flex;
     justify-content: center;
-    gap: 6px;
-    margin-bottom: 6px;
+    gap: 8px;
+    margin-bottom: 10px;
 }
 
 .seat {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 36px;
     padding: 0;
     background-color: #5a9367;
     color: white;
-    border-radius: 5px;
+    border-radius: 12px 12px 5px 5px;
+    border-bottom: 4px solid #3e704a;
     font-size: 12px;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+
+.seat:hover {
+    transform: translateY(-3px);
+}
+.seat.aisle-start {
+    margin-left: 24px;
+}
+
+.seating-section {
+    padding: 20px 10px;
+    border-bottom: 1px solid #e8dfe2;
+}
+
+.seating-section h3 {
+    color: #722f43;
+    font-size: 18px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+@media (max-width: 700px) {
+    main {
+        flex-direction: column;
+        padding: 12px;
+        gap: 15px;
+    }
+
+    .venue,
+    .booking {
+        width: 100%;
+        min-width: 0;
+        padding: 15px;
+    }
+
+    #seat-map {
+        overflow-x: auto;
+        padding-bottom: 15px;
+    }
+
+    .seat-row {
+        width: max-content;
+        min-width: 100%;
+    }
+
+    .seat {
+        flex-shrink: 0;
+    }
+
+    .ticket-zones {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .zone {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
 }
