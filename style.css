@@ -241,3 +241,26 @@ header {
         font-size: 12px;
     }
 }
+.floor-selector {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.floor-btn {
+    background-color: #f2e7e9;
+    color: #722f43;
+    border: 1px solid #d8bdc5;
+    font-weight: bold;
+}
+
+.floor-btn.active {
+    background-color: #722f43;
+    color: white;
+}
+
+.floor-btn:hover {
+    background-color: #945066;
+    color: white;
+}

@@ -36,6 +36,7 @@ const seatMap = document.getElementById("seat-map");
 sections.forEach(function(section) {
     const sectionDiv = document.createElement("div");
     sectionDiv.className = "seating-section";
+    sectionDiv.dataset.floor = section.name === "Economy" ? "balcony" : "main";
 
     const title = document.createElement("h3");
     title.textContent = section.name;
@@ -65,3 +66,24 @@ sections.forEach(function(section) {
 
     seatMap.appendChild(sectionDiv);
 });
+
+const floorButtons = document.querySelectorAll(".floor-btn");
+const seatingSections = document.querySelectorAll(".seating-section");
+
+function showFloor(floor) {
+    seatingSections.forEach(function(section) {
+        section.style.display = section.dataset.floor === floor ? "block" : "none";
+    });
+
+    floorButtons.forEach(function(button) {
+        button.classList.toggle("active", button.dataset.floor === floor);
+    });
+}
+
+floorButtons.forEach(function(button) {
+    button.addEventListener("click", function() {
+        showFloor(button.dataset.floor);
+    });
+});
+
+showFloor("main");
