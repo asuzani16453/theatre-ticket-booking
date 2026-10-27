@@ -24,14 +24,8 @@ const ticketZones = document.getElementById("ticket-zones");
 
 sections.forEach(function (section) {
     const zone = document.createElement("span");
-
     zone.className = "zone " + section.name.toLowerCase();
-    if (section.name === "Balcony") {
-        zone.textContent = "Balcony - 15 / 25 AZN";
-    } else {
-        zone.textContent = section.name + " - " + section.price + " AZN";
-    }
-
+    zone.textContent = section.name + " - " + section.price + " AZN";
     ticketZones.appendChild(zone);
 });
 
@@ -40,7 +34,6 @@ const seatMap = document.getElementById("seat-map");
 sections.forEach(function (section) {
     const sectionDiv = document.createElement("div");
     sectionDiv.className = "seating-section";
-    sectionDiv.dataset.floor = section.name === "Balcony" ? "balcony" : "main";
 
     const title = document.createElement("h3");
     title.textContent = section.name;
@@ -52,17 +45,32 @@ sections.forEach(function (section) {
 
         for (let number = 1; number <= section.seatsPerRow; number++) {
             const seat = document.createElement("button");
+            seat.type = "button";
             seat.className = "seat";
             seat.textContent = number;
+
             seat.dataset.section = section.name;
             seat.dataset.row = row;
             seat.dataset.number = number;
-
             seat.dataset.price = section.price;
+
+            const middle = (section.seatsPerRow + 1) / 2;
+            const distance = Math.abs(number - middle);
+            const curve = distance * distance * 0.35;
+            const angle = (number - middle) * 1.5;
+
+            seat.style.setProperty("--curve", curve + "px");
+            seat.style.setProperty("--angle", angle + "deg");
+
+            seat.setAttribute(
+                "aria-label",
+                section.name + ", row " + row + ", seat " + number
+            );
 
             if (number === Math.floor(section.seatsPerRow / 2) + 1) {
                 seat.classList.add("aisle-start");
             }
+
             rowDiv.appendChild(seat);
         }
 
@@ -71,4 +79,3 @@ sections.forEach(function (section) {
 
     seatMap.appendChild(sectionDiv);
 });
-
