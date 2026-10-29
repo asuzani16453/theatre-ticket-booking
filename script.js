@@ -71,6 +71,27 @@ sections.forEach(function (section) {
                 seat.classList.add("aisle-start");
             }
 
+            seat.addEventListener("click", function () {
+                document.querySelectorAll(".seat.selected").forEach(function (selectedSeat) {
+                    if (selectedSeat !== seat) {
+                        selectedSeat.classList.remove("selected");
+                    }
+                });
+
+                seat.classList.toggle("selected");
+
+                const seatDetails = document.getElementById("seat-details");
+
+                if (seat.classList.contains("selected")) {
+                    seatDetails.innerHTML =
+                        "<p><strong>Zone:</strong> " + section.name + "</p>" +
+                        "<p><strong>Row:</strong> " + row + "</p>" +
+                        "<p><strong>Seat:</strong> " + number + "</p>" +
+                        "<p><strong>Price:</strong> " + section.price + " AZN</p>";
+                } else {
+                    seatDetails.textContent = "Click a seat to view details.";
+                }
+            });
             rowDiv.appendChild(seat);
         }
 

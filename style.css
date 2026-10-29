@@ -1,4 +1,3 @@
-
 * {
     box-sizing: border-box;
 }
@@ -181,8 +180,9 @@ main {
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-transform: translateY(var(--curve, 0px)) rotate(var(--angle, 0deg));
+    transform: translateY(var(--curve, 0px)) rotate(var(--angle, 0deg));
 }
+
 .seat:hover {
     transform: translateY(calc(var(--curve, 0px) - 5px)) rotate(var(--angle, 0deg)) scale(1.12);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
@@ -190,6 +190,11 @@ transform: translateY(var(--curve, 0px)) rotate(var(--angle, 0deg));
 
 .seat.aisle-start {
     margin-left: 24px;
+}
+
+.seat.selected {
+    background-color: #d9a441;
+    border-bottom-color: #ad7c24;
 }
 
 button {
@@ -246,4 +251,20 @@ button:disabled {
         padding: 7px 10px;
         font-size: 11px;
     }
+}
+
+#seat-details {
+    background-color: #faf5f6;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: left;
+}
+
+#seat-details p {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+#seat-details strong {
+    color: #722f43;
 }
