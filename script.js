@@ -20,6 +20,8 @@ const sections = [
     }
 ];
 
+const unavailableSeats = ["VIP-1-3", "VIP-2-6", "Standard-3-4", "Standard-5-9", "Economy-2-7", "Economy-4-11"];
+
 const ticketZones = document.getElementById("ticket-zones");
 
 sections.forEach(function (section) {
@@ -53,14 +55,21 @@ sections.forEach(function (section) {
             seat.dataset.row = row;
             seat.dataset.number = number;
             seat.dataset.price = section.price;
+            const seatId = section.name + "-" + row + "-" + number;
+
+            if (unavailableSeats.includes(seatId)) {
+                seat.classList.add("unavailable");
+                seat.disabled = true;
+            }
 
             const middle = (section.seatsPerRow + 1) / 2;
-            const distance = Math.abs(number - middle);
-            const curve = distance * distance * 0.35;
-            const angle = (number - middle) * 1.5;
+            const offset = number - middle;
 
-            seat.style.setProperty("--curve", curve + "px");
-            seat.style.setProperty("--angle", angle + "deg");
+            const curve = -(offset * offset * 1.0);
+            const angle = - offset * 2.5;
+
+            seat.style.setProperty("--curve", curve.toFixed(1) + "px");
+            seat.style.setProperty("--angle", angle.toFixed(1) + "deg");
 
             seat.setAttribute(
                 "aria-label",
@@ -100,3 +109,12 @@ sections.forEach(function (section) {
 
     seatMap.appendChild(sectionDiv);
 });
+const totalSeats = sections.reduce(function (total, section) {
+    return total + section.rows * section.seatsPerRow;
+}, 0);
+
+const availableCount = totalSeats - unavailableSeats.length;
+
+document.getElementById("seat-availability").textContent =
+    "Available: " + availableCount +
+    " | Unavailable: " + unavailableSeats.length;

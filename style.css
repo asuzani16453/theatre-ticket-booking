@@ -162,10 +162,10 @@ main {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 8px;
-    margin-bottom: 14px;
+    gap: 5px;
+    margin-bottom: 6px;
+    padding-top: 0;
 }
-
 .seat {
     width: 32px;
     height: 34px;
@@ -182,7 +182,6 @@ main {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     transform: translateY(var(--curve, 0px)) rotate(var(--angle, 0deg));
 }
-
 .seat:hover {
     transform: translateY(calc(var(--curve, 0px) - 5px)) rotate(var(--angle, 0deg)) scale(1.12);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
@@ -195,6 +194,17 @@ main {
 .seat.selected {
     background-color: #d9a441;
     border-bottom-color: #ad7c24;
+}
+
+.seat.unavailable {
+    background-color: #999;
+    border-bottom-color: #777;
+    cursor: not-allowed;
+}
+
+.seat.unavailable:hover {
+    box-shadow: none;
+    transform: translateY(var(--curve, 0px)) rotate(var(--angle, 0deg));
 }
 
 button {
