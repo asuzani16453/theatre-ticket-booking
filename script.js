@@ -21,7 +21,8 @@ const sections = [
 ];
 
 const unavailableSeats = ["VIP-1-3", "VIP-2-6", "Standard-3-4", "Standard-5-9", "Economy-2-7", "Economy-4-11"];
-const cart = [];
+const savedCart = JSON.parse(localStorage.getItem("velvetStageCart") || "[]");
+const cart = savedCart;
 let selectedSeat = null;
 
 const ticketZones = document.getElementById("ticket-zones");
@@ -124,6 +125,20 @@ sections.forEach(function (section) {
 
     seatMap.appendChild(sectionDiv);
 });
+cart.forEach(function (item) {
+    const seat = document.querySelector(
+        '.seat[data-section="' + item.section +
+        '"][data-row="' + item.row +
+        '"][data-number="' + item.number + '"]'
+    );
+
+    if (seat) {
+        seat.classList.add("in-cart");
+        seat.disabled = true;
+    }
+});
+
+updateCart();
 const totalSeats = sections.reduce(function (total, section) {
     return total + section.rows * section.seatsPerRow;
 }, 0);
@@ -185,6 +200,8 @@ function updateCart() {
     });
 
     totalPrice.textContent = total;
+document.querySelectorAll(".booking h2")[1].textContent = "Your Cart (" + cart.length + ")";
+    localStorage.setItem("velvetStageCart", JSON.stringify(cart));
 }
 function removeFromCart(item) {
     const index = cart.indexOf(item);
@@ -206,3 +223,15 @@ function removeFromCart(item) {
 
     updateCart();
 }
+const clearCartButton = document.getElementById("clear-cart");
+
+clearCartButton.addEventListener("click", function () {
+    cart.length = 0;
+
+    document.querySelectorAll(".seat.in-cart").forEach(function (seat) {
+        seat.classList.remove("in-cart");
+        seat.disabled = false;
+    });
+
+    updateCart();
+});

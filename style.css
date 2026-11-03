@@ -295,3 +295,12 @@ button:disabled {
     border-radius: 6px;
     font-size: 13px;
 }
+#clear-cart {
+    background-color: #722f43;
+    margin-top: 10px;
+    width: 100%;
+}
+
+#clear-cart:hover {
+    background-color: #401c2a;
+}
