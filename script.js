@@ -158,3 +158,51 @@ addToCartButton.addEventListener("click", function () {
 
     updateCart();
 });
+function updateCart() {
+    cartItems.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach(function (item) {
+        const paragraph = document.createElement("p");
+
+        paragraph.textContent =
+            item.section +
+            " | Row " + item.row +
+            " | Seat " + item.number +
+            " - " + item.price + " AZN";
+
+        cartItems.appendChild(paragraph);
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "Remove";
+
+        removeButton.addEventListener("click", function () {
+            removeFromCart(item);
+        });
+
+        cartItems.appendChild(removeButton);
+        total += item.price;
+    });
+
+    totalPrice.textContent = total;
+}
+function removeFromCart(item) {
+    const index = cart.indexOf(item);
+
+    if (index !== -1) {
+        cart.splice(index, 1);
+    }
+
+    const seat = document.querySelector(
+        '.seat[data-section="' + item.section +
+        '"][data-row="' + item.row +
+        '"][data-number="' + item.number + '"]'
+    );
+
+    if (seat) {
+        seat.classList.remove("in-cart");
+        seat.disabled = false;
+    }
+
+    updateCart();
+}
