@@ -278,3 +278,20 @@ button:disabled {
 #seat-details strong {
     color: #722f43;
 }
+.seat.in-cart {
+    background-color: #722f43;
+    border-bottom-color: #401c2a;
+    cursor: not-allowed;
+}
+
+.seat.in-cart:hover {
+    box-shadow: none;
+    transform: translateY(var(--curve, 0px)) rotate(var(--angle, 0deg));
+}
+
+#cart-items p {
+    background-color: #faf5f6;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 13px;
+}
