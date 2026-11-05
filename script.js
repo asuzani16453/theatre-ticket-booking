@@ -176,8 +176,13 @@ addToCartButton.addEventListener("click", function () {
 function updateCart() {
     cartItems.innerHTML = "";
 
-    let total = 0;
+    if (cart.length === 0) {
+        const message = document.createElement("p");
+        message.textContent = "Your cart is empty.";
+        cartItems.appendChild(message);
+    }
 
+    let total = 0;
     cart.forEach(function (item) {
         const paragraph = document.createElement("p");
 
@@ -200,7 +205,7 @@ function updateCart() {
     });
 
     totalPrice.textContent = total;
-    document.querySelectorAll(".booking h2")[1].textContent = "Your Cart (" + cart.length + ")";
+    document.getElementById("cart-title").textContent = "Your Cart (" + cart.length + ")";
     localStorage.setItem("velvetStageCart", JSON.stringify(cart));
 }
 function removeFromCart(item) {
@@ -235,7 +240,7 @@ clearCartButton.addEventListener("click", function () {
 
     updateCart();
 });
-let zoomLevel = 1;
+let zoomLevel = window.innerWidth <= 700 ? 0.65 : 1;
 let moveX = 0;
 let moveY = 0;
 
@@ -276,7 +281,7 @@ document.getElementById("move-right").addEventListener("click", function () {
 });
 
 document.getElementById("reset-view").addEventListener("click", function () {
-    zoomLevel = 1;
+    zoomLevel = window.innerWidth <= 700 ? 0.65 : 1;
     moveX = 0;
     moveY = 0;
     updateMapZoom();
@@ -321,3 +326,5 @@ function stopDragging() {
 
 seatMap.addEventListener("pointerup", stopDragging);
 seatMap.addEventListener("pointercancel", stopDragging);
+
+updateMapZoom();

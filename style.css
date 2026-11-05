@@ -347,3 +347,90 @@ button:disabled {
 #seat-map .seat.in-cart {
     cursor: not-allowed;
 }
+@media (max-width: 700px) {
+    .venue {
+        overflow: hidden;
+    }
+
+    #seat-map {
+        width: 100%;
+        min-width: 0;
+        margin: 0 auto;
+        overflow: visible;
+    }
+
+    .seat-row {
+        width: max-content;
+        min-width: 100%;
+        justify-content: center;
+        gap: 3px;
+    }
+
+    .seat {
+        width: 24px;
+        height: 28px;
+        font-size: 10px;
+    }
+
+    .seat.aisle-start {
+        margin-left: 12px;
+    }
+
+    .seating-section:last-child .seat-row {
+        gap: 2px;
+    }
+
+    .seating-section:last-child .seat {
+        width: 20px;
+        height: 25px;
+        font-size: 9px;
+    }
+
+    .seating-section:last-child .seat.aisle-start {
+        margin-left: 8px;
+    }
+
+    .map-controls {
+        gap: 6px;
+        padding: 5px;
+    }
+
+    .map-controls button {
+        min-height: 40px;
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    #reset-view {
+        min-width: 100px;
+    }
+
+    .booking {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .booking h2 {
+        font-size: 20px;
+        margin: 12px 0;
+    }
+
+    #seat-details {
+        padding: 12px;
+    }
+
+    #add-to-cart,
+    #clear-cart {
+        width: 100%;
+        min-height: 44px;
+        margin-top: 10px;
+    }
+
+    #cart-items {
+        width: 100%;
+    }
+
+    #cart-items button {
+        margin-bottom: 10px;
+    }
+}
