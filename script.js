@@ -281,7 +281,7 @@ clearCartButton.addEventListener("click", function () {
 
     updateCart();
 });
-let zoomLevel = window.innerWidth <= 700 ? 0.65 : 1;
+let zoomLevel = 1;
 let moveX = 0;
 let moveY = 0;
 
@@ -334,8 +334,7 @@ document.getElementById("reset-view").addEventListener("click", function () {
     moveX = 0;
     moveY = 0;
 
-    seatMap.style.transform = "none";
-    seatMap.style.transformOrigin = "top center";
+    updateMapZoom();
 });
 
 seatMap.addEventListener("wheel", function (event) {
