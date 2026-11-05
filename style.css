@@ -304,3 +304,29 @@ button:disabled {
 #clear-cart:hover {
     background-color: #401c2a;
 }
+
+.map-controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.map-controls button {
+    background-color: #722f43;
+    padding: 8px 12px;
+}
+
+.map-controls button:hover {
+    background-color: #401c2a;
+}
+.map-controls {
+    position: relative;
+    z-index: 10;
+}
+
+#seat-map {
+    position: relative;
+    z-index: 1;
+}

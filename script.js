@@ -200,7 +200,7 @@ function updateCart() {
     });
 
     totalPrice.textContent = total;
-document.querySelectorAll(".booking h2")[1].textContent = "Your Cart (" + cart.length + ")";
+    document.querySelectorAll(".booking h2")[1].textContent = "Your Cart (" + cart.length + ")";
     localStorage.setItem("velvetStageCart", JSON.stringify(cart));
 }
 function removeFromCart(item) {
@@ -234,4 +234,50 @@ clearCartButton.addEventListener("click", function () {
     });
 
     updateCart();
+});
+let zoomLevel = 1;
+let moveX = 0;
+let moveY = 0;
+
+function updateMapZoom() {
+    seatMap.style.transform =
+        "translate(" + moveX + "px, " + moveY + "px) scale(" + zoomLevel + ")";
+    seatMap.style.transformOrigin = "top center";
+}
+
+document.getElementById("zoom-in").addEventListener("click", function () {
+    zoomLevel = Math.min(zoomLevel + 0.1, 1.5);
+    updateMapZoom();
+});
+
+document.getElementById("zoom-out").addEventListener("click", function () {
+    zoomLevel = Math.max(zoomLevel - 0.1, 0.6);
+    updateMapZoom();
+});
+
+document.getElementById("move-up").addEventListener("click", function () {
+    moveY -= 20;
+    updateMapZoom();
+});
+
+document.getElementById("move-down").addEventListener("click", function () {
+    moveY += 20;
+    updateMapZoom();
+});
+
+document.getElementById("move-left").addEventListener("click", function () {
+    moveX -= 20;
+    updateMapZoom();
+});
+
+document.getElementById("move-right").addEventListener("click", function () {
+    moveX += 20;
+    updateMapZoom();
+});
+
+document.getElementById("reset-view").addEventListener("click", function () {
+    zoomLevel = 1;
+    moveX = 0;
+    moveY = 0;
+    updateMapZoom();
 });
