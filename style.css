@@ -5,7 +5,11 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f4f5f9;
+    background: linear-gradient(135deg,
+            #f8e9e5 0%,
+            #e9cdd5 45%,
+            #d5aab9 100%);
+    min-height: 100vh;
     color: #222;
 }
 
@@ -166,6 +170,7 @@ main {
     margin-bottom: 6px;
     padding-top: 0;
 }
+
 .seat {
     width: 32px;
     height: 34px;
@@ -182,6 +187,7 @@ main {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     transform: translateY(var(--curve, 0px)) rotate(var(--angle, 0deg));
 }
+
 .seat:hover {
     transform: translateY(calc(var(--curve, 0px) - 5px)) rotate(var(--angle, 0deg)) scale(1.12);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
@@ -278,6 +284,7 @@ button:disabled {
 #seat-details strong {
     color: #722f43;
 }
+
 .seat.in-cart {
     background-color: #722f43;
     border-bottom-color: #401c2a;
@@ -295,6 +302,7 @@ button:disabled {
     border-radius: 6px;
     font-size: 13px;
 }
+
 #clear-cart {
     background-color: #722f43;
     margin-top: 10px;
@@ -321,6 +329,7 @@ button:disabled {
 .map-controls button:hover {
     background-color: #401c2a;
 }
+
 .map-controls {
     position: relative;
     z-index: 10;
@@ -330,6 +339,7 @@ button:disabled {
     position: relative;
     z-index: 1;
 }
+
 #seat-map {
     touch-action: none;
     cursor: grab;
@@ -347,6 +357,7 @@ button:disabled {
 #seat-map .seat.in-cart {
     cursor: not-allowed;
 }
+
 @media (max-width: 700px) {
     .venue {
         overflow: hidden;
@@ -433,4 +444,16 @@ button:disabled {
     #cart-items button {
         margin-bottom: 10px;
     }
+}
+
+#map-viewport {
+    width: 100%;
+    position: relative;
+    border: 1px solid #e8dfe2;
+    border-radius: 8px;
+}
+.venue,
+.booking {
+    box-shadow: 0 8px 25px rgba(64, 28, 42, 0.15);
+    border: 1px solid rgba(114, 47, 67, 0.1);
 }

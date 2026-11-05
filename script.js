@@ -21,8 +21,18 @@ const sections = [
 ];
 
 const unavailableSeats = ["VIP-1-3", "VIP-2-6", "Standard-3-4", "Standard-5-9", "Economy-2-7", "Economy-4-11"];
-const savedCart = JSON.parse(localStorage.getItem("velvetStageCart") || "[]");
+let savedCart = [];
+try {
+    savedCart = JSON.parse(localStorage.getItem("velvetStageCart") || "[]");
+
+    if (!Array.isArray(savedCart)) {
+        savedCart = [];
+    }
+} catch (error) {
+    savedCart = [];
+}
 const cart = savedCart;
+
 let selectedSeat = null;
 
 const ticketZones = document.getElementById("ticket-zones");
@@ -125,19 +135,40 @@ sections.forEach(function (section) {
 
     seatMap.appendChild(sectionDiv);
 });
-cart.forEach(function (item) {
-    const seat = document.querySelector(
-        '.seat[data-section="' + item.section +
-        '"][data-row="' + item.row +
-        '"][data-number="' + item.number + '"]'
-    );
+const restoredSeats = new Set();
 
-    if (seat) {
-        seat.classList.add("in-cart");
-        seat.disabled = true;
+for (let i = cart.length - 1; i >= 0; i--) {
+    const item = cart[i];
+
+    if (!item || typeof item !== "object") {
+        cart.splice(i, 1);
+        continue;
     }
-});
 
+    const seat = Array.from(document.querySelectorAll(".seat")).find(function (s) {
+        return s.dataset.section === item.section &&
+            s.dataset.row === String(item.row) &&
+            s.dataset.number === String(item.number);
+    });
+
+    if (!seat || seat.classList.contains("unavailable")) {
+        cart.splice(i, 1);
+        continue;
+    }
+
+    const seatId = item.section + "-" + item.row + "-" + item.number;
+
+    if (restoredSeats.has(seatId)) {
+        cart.splice(i, 1);
+        continue;
+    }
+
+    restoredSeats.add(seatId);
+    item.price = Number(seat.dataset.price);
+
+    seat.classList.add("in-cart");
+    seat.disabled = true;
+}
 updateCart();
 const totalSeats = sections.reduce(function (total, section) {
     return total + section.rows * section.seatsPerRow;
@@ -160,6 +191,16 @@ addToCartButton.addEventListener("click", function () {
         number: selectedSeat.dataset.number,
         price: Number(selectedSeat.dataset.price)
     };
+
+    const alreadyInCart = cart.some(function (c) {
+        return c.section === item.section &&
+            c.row === item.row &&
+            c.number === item.number;
+    });
+
+    if (alreadyInCart) {
+        return;
+    }
 
     cart.push(item);
 
@@ -244,9 +285,17 @@ let zoomLevel = window.innerWidth <= 700 ? 0.65 : 1;
 let moveX = 0;
 let moveY = 0;
 
+
 function updateMapZoom() {
+    const maxMoveX = Math.max(100, seatMap.offsetWidth * zoomLevel / 2);
+    const maxMoveY = Math.max(100, seatMap.offsetHeight * zoomLevel / 2);
+
+    moveX = Math.max(-maxMoveX, Math.min(maxMoveX, moveX));
+    moveY = Math.max(-maxMoveY, Math.min(maxMoveY, moveY));
+
     seatMap.style.transform =
         "translate(" + moveX + "px, " + moveY + "px) scale(" + zoomLevel + ")";
+
     seatMap.style.transformOrigin = "top center";
 }
 
@@ -281,10 +330,12 @@ document.getElementById("move-right").addEventListener("click", function () {
 });
 
 document.getElementById("reset-view").addEventListener("click", function () {
-    zoomLevel = window.innerWidth <= 700 ? 0.65 : 1;
+    zoomLevel = 1;
     moveX = 0;
     moveY = 0;
-    updateMapZoom();
+
+    seatMap.style.transform = "none";
+    seatMap.style.transformOrigin = "top center";
 });
 
 seatMap.addEventListener("wheel", function (event) {
@@ -300,26 +351,49 @@ seatMap.addEventListener("wheel", function (event) {
 }, { passive: false });
 
 let isDragging = false;
+let dragMoved = false;
 let dragStartX = 0;
 let dragStartY = 0;
+let startX = 0;
+let startY = 0;
 
 seatMap.addEventListener("pointerdown", function (event) {
-    if (event.target.closest(".seat")) return;
-
     isDragging = true;
+    dragMoved = false;
+
+    startX = event.clientX;
+    startY = event.clientY;
+
     dragStartX = event.clientX - moveX;
     dragStartY = event.clientY - moveY;
-    seatMap.setPointerCapture(event.pointerId);
 });
 
 seatMap.addEventListener("pointermove", function (event) {
     if (!isDragging) return;
 
+    if (!dragMoved) {
+        const distance = Math.hypot(
+            event.clientX - startX,
+            event.clientY - startY
+        );
+
+        if (distance < 5) return;
+
+        dragMoved = true;
+        seatMap.setPointerCapture(event.pointerId);
+    }
+
     moveX = event.clientX - dragStartX;
     moveY = event.clientY - dragStartY;
+
     updateMapZoom();
 });
-
+seatMap.addEventListener("click", function (event) {
+    if (dragMoved) {
+        event.stopPropagation();
+        dragMoved = false;
+    }
+}, true);
 function stopDragging() {
     isDragging = false;
 }
