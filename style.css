@@ -330,3 +330,20 @@ button:disabled {
     position: relative;
     z-index: 1;
 }
+#seat-map {
+    touch-action: none;
+    cursor: grab;
+}
+
+#seat-map:active {
+    cursor: grabbing;
+}
+
+#seat-map .seat {
+    cursor: pointer;
+}
+
+#seat-map .seat.unavailable,
+#seat-map .seat.in-cart {
+    cursor: not-allowed;
+}

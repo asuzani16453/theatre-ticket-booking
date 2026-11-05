@@ -281,3 +281,43 @@ document.getElementById("reset-view").addEventListener("click", function () {
     moveY = 0;
     updateMapZoom();
 });
+
+seatMap.addEventListener("wheel", function (event) {
+    event.preventDefault();
+
+    if (event.deltaY < 0) {
+        zoomLevel = Math.min(zoomLevel + 0.05, 1.5);
+    } else {
+        zoomLevel = Math.max(zoomLevel - 0.05, 0.6);
+    }
+
+    updateMapZoom();
+}, { passive: false });
+
+let isDragging = false;
+let dragStartX = 0;
+let dragStartY = 0;
+
+seatMap.addEventListener("pointerdown", function (event) {
+    if (event.target.closest(".seat")) return;
+
+    isDragging = true;
+    dragStartX = event.clientX - moveX;
+    dragStartY = event.clientY - moveY;
+    seatMap.setPointerCapture(event.pointerId);
+});
+
+seatMap.addEventListener("pointermove", function (event) {
+    if (!isDragging) return;
+
+    moveX = event.clientX - dragStartX;
+    moveY = event.clientY - dragStartY;
+    updateMapZoom();
+});
+
+function stopDragging() {
+    isDragging = false;
+}
+
+seatMap.addEventListener("pointerup", stopDragging);
+seatMap.addEventListener("pointercancel", stopDragging);
