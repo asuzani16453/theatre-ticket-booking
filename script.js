@@ -135,6 +135,10 @@ sections.forEach(function (section) {
 
     seatMap.appendChild(sectionDiv);
 });
+const totalSeats = sections.reduce(function (total, section) {
+    return total + section.rows * section.seatsPerRow;
+}, 0);
+
 const restoredSeats = new Set();
 
 for (let i = cart.length - 1; i >= 0; i--) {
@@ -170,15 +174,17 @@ for (let i = cart.length - 1; i >= 0; i--) {
     seat.disabled = true;
 }
 updateCart();
-const totalSeats = sections.reduce(function (total, section) {
-    return total + section.rows * section.seatsPerRow;
-}, 0);
 
-const availableCount = totalSeats - unavailableSeats.length;
 
-document.getElementById("seat-availability").textContent =
-    "Available: " + availableCount +
-    " | Unavailable: " + unavailableSeats.length;
+function updateAvailability() {
+    const availableCount = totalSeats - unavailableSeats.length - cart.length;
+
+    document.getElementById("seat-availability").textContent =
+        "Available: " + availableCount +
+        " | Unavailable: " + unavailableSeats.length;
+}
+
+updateAvailability();
 
 addToCartButton.addEventListener("click", function () {
     if (!selectedSeat) {
@@ -248,6 +254,7 @@ function updateCart() {
     totalPrice.textContent = total;
     document.getElementById("cart-title").textContent = "Your Cart (" + cart.length + ")";
     localStorage.setItem("velvetStageCart", JSON.stringify(cart));
+    updateAvailability();
 }
 function removeFromCart(item) {
     const index = cart.indexOf(item);
@@ -285,13 +292,20 @@ let zoomLevel = 1;
 let moveX = 0;
 let moveY = 0;
 
-
 function updateMapZoom() {
-    const maxMoveX = Math.max(100, seatMap.offsetWidth * zoomLevel / 2);
-    const maxMoveY = Math.max(100, seatMap.offsetHeight * zoomLevel / 2);
+    const mapViewport = document.getElementById("map-viewport");
 
-    moveX = Math.max(-maxMoveX, Math.min(maxMoveX, moveX));
-    moveY = Math.max(-maxMoveY, Math.min(maxMoveY, moveY));
+    const mapWidth = seatMap.offsetWidth * zoomLevel;
+    const mapHeight = seatMap.offsetHeight * zoomLevel;
+    const viewWidth = mapViewport.clientWidth;
+    const viewHeight = mapViewport.clientHeight;
+
+    const maxX = Math.max(0, (mapWidth - viewWidth) / 2) + 60;
+    const minY = Math.min(0, viewHeight - mapHeight) - 60;
+    const maxY = 60;
+
+    moveX = Math.max(-maxX, Math.min(maxX, moveX));
+    moveY = Math.max(minY, Math.min(maxY, moveY));
 
     seatMap.style.transform =
         "translate(" + moveX + "px, " + moveY + "px) scale(" + zoomLevel + ")";

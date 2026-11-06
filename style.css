@@ -444,7 +444,7 @@ button:disabled {
 
 #map-viewport {
     width: 100%;
-    height: 520px;
+    height: 740px;
     overflow: hidden;
     position: relative;
     border: 1px solid #e8dfe2;
@@ -454,4 +454,57 @@ button:disabled {
 .booking {
     box-shadow: 0 8px 25px rgba(64, 28, 42, 0.15);
     border: 1px solid rgba(114, 47, 67, 0.1);
+}
+#cart-items button {
+    background-color: #722f43;
+    padding: 6px 12px;
+    margin: 0 0 10px;
+    font-size: 12px;
+}
+
+.seat:focus-visible {
+    outline: 3px solid #d9a441;
+}
+@media (max-width: 900px) {
+    #map-viewport {
+        height: 580px;
+    }
+}
+@media (max-width: 420px) {
+    main {
+        padding: 6px;
+        gap: 10px;
+    }
+
+    .venue {
+        padding: 8px;
+    }
+
+    .seating-section {
+        padding: 4px 2px;
+    }
+
+    .seat {
+        width: 21px;
+        height: 25px;
+        font-size: 9px;
+    }
+
+    .seat-row {
+        gap: 2px;
+    }
+
+    .seat.aisle-start {
+        margin-left: 8px;
+    }
+
+    .seating-section:last-child .seat {
+        width: 19px;
+        height: 23px;
+        font-size: 8px;
+    }
+
+    .seating-section:last-child .seat.aisle-start {
+        margin-left: 8px;
+    }
 }
